@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Lister Lite</title>
+  <style>
+    .low {
+      color: green;
+    }
+    .medium {
+      color: yellow;
+    }
+    .high {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task Lister Lite</h1>
+  <form id="create-task-form" action="#" method="POST">
+    <label for="new-task-description">Task description:</label>
+    <input type="text" id="new-task-description" name="new-task-description" placeholder="description" required />
+    <label for="task-priority">Priority:</label>
+    <select id="task-priority">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+    <input type="submit" value="Create New Task" />
+  </form>
+  <ul id="tasks"></ul>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const taskForm = document.getElementById('create-task-form');
+      const taskList = document.getElementById('tasks');
+
+      taskForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const newTaskDescription = document.getElementById('new-task-description').value;
+        const taskPriority = document.getElementById('task-priority').value;
+
+        const newTaskItem = document.createElement('li');
+        newTaskItem.textContent = newTaskDescription;
+        newTaskItem.className = taskPriority;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', function() {
+          newTaskItem.remove();
+        });
+
+        newTaskItem.appendChild(deleteButton);
+        taskList.appendChild(newTaskItem);
+
+        taskForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>
